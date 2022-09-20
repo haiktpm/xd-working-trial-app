@@ -45,7 +45,7 @@ jobs:
         path: xd-working-trial-helm-chart/charts-xd-trial/values
     - name: deploy to EKS
       run: |
-        ls -la
+        cd xd-working-trial-helm-chart/charts-xd-trial/values
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
         git add .
         git config user.email "haitv2809@gmail.com" && git config user.name "haiktpm" && git commit -am "${{ github.event.head_commit.message }}"
