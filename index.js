@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const { Pool } = require('pg')
+const tracer = require('dd-trace').init()
 
 const pool = new Pool({
     user: process.env.pg_user,
