@@ -35,12 +35,17 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA
-        
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GIT_TOKEN }}
+        repository: haiktpm/xd-working-trial-helm-chart
+        path: charts-xd-trial/values
     - name: deploy to EKS
       run: |
-        git clone https://haiktpm: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@github.com/haiktpm/xd-working-trial-helm-chart.git
-        cd xd-working-trial-helm-chart/charts-xd-trial/values
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
-        git remote set-url --push origin https://haiktpm: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@github.com/haiktpm/xd-working-trial-helm-chart.git
-        git config --local user.email "haitv2809@gmail.com" && git config --local user.name "haiktpm" && git commit -am "${{ github.event.head_commit.message }}"
+        git add .
+        git config user.email "haitv2809@gmail.com" && git config user.name "haiktpm" && git commit -am "${{ github.event.head_commit.message }}"
         git push
