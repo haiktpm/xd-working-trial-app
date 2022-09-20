@@ -43,11 +43,21 @@ jobs:
       with:
         repository: haiktpm/xd-working-trial-helm-chart
         token: ${{ secrets.GIT_TOKEN }}
-    - name: deploy to EKS
+        
+    - name: update manifest
       run: |
-        cd charts-xd-trial/values
+        cd charts-xd-trial
         ls -la
-        envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
-        git add .
-        git config user.email "haitv2809@gmail.com" && git config user.name "haiktpm" && git commit -am "${{ github.event.head_commit.message }}"
-        git push
+        envsubst < values/xd-trial-values.yaml.template > values/xd-trial-values.yaml
+        
+    - name: Pushes to another repository
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.GIT_TOKEN }}
+      with:
+        source-directory: 'values'
+        destination-github-username: 'haiktpm'
+        destination-repository-name: 'xd-working-trial-helm-chart'
+        user-email: haitv2809@gmail.com
+        target-branch: main
+          
