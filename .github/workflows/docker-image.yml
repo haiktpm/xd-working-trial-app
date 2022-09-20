@@ -45,6 +45,7 @@ jobs:
         token: ${{ secrets.GIT_TOKEN }}
     - name: deploy to EKS
       run: |
+        IMAGE_TAG=`echo ${GITHUB_SHA} | cut -c1-8`
         cd charts-xd-trial/values
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
         git add .
