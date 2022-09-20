@@ -43,9 +43,13 @@ jobs:
       with:
         repository: haiktpm/xd-working-trial-helm-chart
         token: ${{ secrets.GIT_TOKEN }}
+        
+    - name: set image tag
+      run: echo "IMAGE_TAG=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+      
     - name: deploy to EKS
       run: |
-        IMAGE_TAG=`echo ${GITHUB_SHA} | cut -c1-8`
+        echo $IMAGE_TAG
         cd charts-xd-trial/values
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
         git add .
