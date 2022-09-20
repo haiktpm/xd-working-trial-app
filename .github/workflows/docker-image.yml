@@ -54,7 +54,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.GIT_TOKEN }}
       with:
-        source-directory: 'values'
+        source-directory: 'charts-xd-trial/values'
         destination-github-username: 'haiktpm'
         destination-repository-name: 'xd-working-trial-helm-chart'
         user-email: haitv2809@gmail.com
