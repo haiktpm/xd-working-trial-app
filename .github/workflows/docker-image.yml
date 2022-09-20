@@ -42,9 +42,9 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: haiktpm/xd-working-trial-helm-chart
-        path: xd-working-trial-helm-chart/charts-xd-trial/values
     - name: deploy to EKS
       run: |
+        ls -la
         cd xd-working-trial-helm-chart/charts-xd-trial/values
         ls -la
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
