@@ -40,7 +40,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        token: ${{ secrets.GIT_TOKEN }}
         repository: haiktpm/xd-working-trial-helm-chart
         path: charts-xd-trial/values
     - name: deploy to EKS
