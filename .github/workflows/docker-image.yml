@@ -38,9 +38,9 @@ jobs:
         
     - name: deploy to EKS
       run: |
-        git clone https://x-access-token:$GIT_TOKEN@github.com/haiktpm/xd-working-trial-helm-chart.git
+        git clone https://haiktpm:$GIT_TOKEN@github.com/haiktpm/xd-working-trial-helm-chart.git
         cd xd-working-trial-helm-chart/charts-xd-trial/values
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
-        git config remote.origin.url https://x-access-token:$GIT_TOKEN@github.com/haiktpm/xd-working-trial-helm-chart.git
+        git remote set-url --push origin https://haiktpm:$GIT_TOKEN@github.com/haiktpm/xd-working-trial-helm-chart.git
         git config --local user.email "haitv2809@gmail.com" && git config --local user.name "haiktpm" && git commit -am "${{ github.event.head_commit.message }}"
         git push
