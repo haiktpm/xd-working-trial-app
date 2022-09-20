@@ -27,7 +27,7 @@ var responsev3 = responsev2 + "<br/>System info:<br/>CPU: "+ os.loadavg() +"  Me
 app.get('/', (req, res) => {
     console.log(`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}  -  ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`+"-----"+req.headers['user-agent'])
     createUser(req,res)
-    res.send(responsev3)
+    res.send(responsev1)
 })
 app.listen(port, (err) => {
     if (err) {
