@@ -36,14 +36,16 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         repository: haiktpm/xd-working-trial-helm-chart
         path: xd-working-trial-helm-chart/charts-xd-trial/values
     - name: deploy to EKS
       run: |
+        ls -la
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
         git add .
         git config user.email "haitv2809@gmail.com" && git config user.name "haiktpm" && git commit -am "${{ github.event.head_commit.message }}"
