@@ -44,8 +44,7 @@ jobs:
         repository: haiktpm/xd-working-trial-helm-chart
     - name: deploy to EKS
       run: |
-        ls -la
-        cd xd-working-trial-helm-chart/charts-xd-trial/values
+        cd charts-xd-trial/values
         ls -la
         envsubst < xd-trial-values.yaml.template > xd-trial-values.yaml
         git add .
