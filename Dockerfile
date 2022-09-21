@@ -15,7 +15,7 @@ RUN npm install
 COPY ./ .
 
 # Expose the port
-EXPOSE 3030
+EXPOSE 3032
 
 # Command to run app when intantiate an image
 CMD ["npm","start"]
