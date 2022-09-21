@@ -54,6 +54,14 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA
+    - name: Scan Docker image
+      id: docker-scan
+      uses: alexjurkiewicz/ecr-scan-image@v1.7.0
+      with:
+        repository: $ECR_REGISTRY/$ECR_REPOSITORY
+        tag: $SHORT_SHA
+    # Access scan results in later steps
+    - run: echo "${{ steps.docker-scan.outputs.total }} total vulnerabilities."
   deploy:
     needs: build
     runs-on: ubuntu-latest
